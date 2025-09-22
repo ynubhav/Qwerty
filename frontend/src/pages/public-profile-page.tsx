@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { Loader, Search, Unplug, User } from "lucide-react";
+import { Search, Unplug, User } from "lucide-react";
 import { Logo } from "@/components/logo";
 import axios from "axios";
 import { toast } from "sonner";

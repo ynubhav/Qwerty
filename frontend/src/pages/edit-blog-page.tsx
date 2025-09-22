@@ -3,10 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
-  Edit,
   LucideUpload,
   Save,
-  Trash2Icon,
   Upload,
   X,
 } from "lucide-react";
@@ -14,20 +12,20 @@ import { Loader2Icon } from "lucide-react";
 import { useRef, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
+// import * as DialogPrimitive from "@radix-ui/react-dialog";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogHeader,
+//   DialogTitle,
+//   DialogTrigger,
+// } from "@/components/ui/dialog";
+// import {
+//   Tooltip,
+//   TooltipTrigger,
+//   TooltipContent,
+// } from "@/components/ui/tooltip";
 import axios from "axios";
 import { toast } from "sonner";
 import uploadImageToCloudinary from "@/lib/utils.cloudinary";

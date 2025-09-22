@@ -27,6 +27,7 @@ export function ReadSpace() {
       else{
         setNotfound(true);
         setLoading(false)
+        setid('6c03e401-6e28-4136-8452-bf53808af74a')
       }
     }
     getBlog();
