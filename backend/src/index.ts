@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import type { Context } from "hono";
 import appRouter from './routes';
 import { cors } from 'hono/cors'
 

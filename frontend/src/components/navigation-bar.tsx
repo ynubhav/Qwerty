@@ -7,7 +7,6 @@ import {
   ListChevronsDownUp,
   LogIn,
   LogOut,
-  Logs,
   Star,
   UserPenIcon,
 } from "lucide-react";
@@ -22,7 +21,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ModeToggle } from "./mode-toggle";
 import { Label } from "./ui/label";
 import { toast } from "sonner";
@@ -31,6 +30,8 @@ import axios from "axios";
 
 export function NavigationMenuBar() {
   const [LoggedIn, setLoggedIn] = useState(false);
+  const [userid,setuserid]=useState('');
+  const some=useLocation();
   useEffect(() => {
     try{
     const token = localStorage.getItem("token");
@@ -40,6 +41,7 @@ export function NavigationMenuBar() {
       }})
       .then((res) => {
         if (res.data.success) {
+          setuserid(res.data.userinfo.id);
           setLoggedIn(true);
         } else {
           setLoggedIn(false);
@@ -53,7 +55,7 @@ export function NavigationMenuBar() {
       catch(err){
         toast.error('User Not Logged In')
       }
-  }, []);
+  }, [some]);
   return (
     <NavigationMenu className="flex w-full" viewport={false}>
       <NavigationMenuList>
@@ -115,7 +117,7 @@ export function NavigationMenuBar() {
               <li>
                 <NavigationMenuLink asChild>
                   <Link
-                    to={"/blog/mylist/ReadList"}
+                    to={"/mylist/ReadList"}
                     className="flex-row items-center gap-2"
                   >
                     <List />
@@ -124,14 +126,14 @@ export function NavigationMenuBar() {
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
                   <Link
-                    to={"/blog/mylist/Favourites"}
+                    to={"/mylist/Favourites"}
                     className="flex-row items-center gap-2"
                   >
                     <Star />
                     Favourites
                   </Link>
                 </NavigationMenuLink>
-                <NavigationMenuLink asChild>
+                {/* <NavigationMenuLink asChild>
                   <Link
                     to={"/blog/workspace/logs"}
                     className="flex-row items-center gap-2"
@@ -139,7 +141,7 @@ export function NavigationMenuBar() {
                     <Logs />
                     Create Logs
                   </Link>
-                </NavigationMenuLink>
+                </NavigationMenuLink> */}
               </li>
             </ul>
           </NavigationMenuContent>
@@ -158,7 +160,7 @@ export function NavigationMenuBar() {
                 {LoggedIn && (
                   <NavigationMenuLink asChild>
                     <Link
-                      to={"/home/profile/afjjpf-fhfajk"}
+                      to={`/home/profile/${userid}`}
                       className="flex-row items-center gap-2"
                     >
                       <UserPenIcon />
@@ -219,37 +221,58 @@ export function NavigationMenuBar() {
             </NavigationMenuItem>
 
             <NavigationMenuItem className="relative z-0">
-              <NavigationMenuTrigger>List</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-full gap-4">
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link to={"/"}>
-                        <div className="font-medium">Components</div>
-                        <div className="text-muted-foreground">
-                          Browse all components in the library.
-                        </div>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to={"/"}>
-                        <div className="font-medium">Documentation</div>
-                        <div className="text-muted-foreground">
-                          Learn how to use the library.
-                        </div>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to={"/"}>
-                        <div className="font-medium">Blog</div>
-                        <div className="text-muted-foreground">
-                          Read our latest blog posts.
-                        </div>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                </ul>
-              </NavigationMenuContent>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link to={"/blog/workspace/create"}>Create</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem className="hidden md:flex">
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link to={"/feed"}>
+                  {" "}
+                  <Label className="flex items-center">
+                    My Reading List
+                    <ArrowUpRightFromSquare className="w-5 h-5" />
+                  </Label>
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem className="hidden md:flex">
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link to={"/feed"}>
+                  {" "}
+                  <Label className="flex items-center">
+                     Favourites
+                    <ArrowUpRightFromSquare className="w-5 h-5" />
+                  </Label>
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+
+            <NavigationMenuItem className="hidden md:flex">
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link to={"/feed"}>
+                  {" "}
+                  <Label className="flex items-center">
+                    Create
+                    <ArrowUpRightFromSquare className="w-5 h-5" />
+                  </Label>
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
 
             <NavigationMenuItem className="hidden md:flex">

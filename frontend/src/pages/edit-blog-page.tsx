@@ -31,6 +31,7 @@ import {
 import axios from "axios";
 import { toast } from "sonner";
 import uploadImageToCloudinary from "@/lib/utils.cloudinary";
+import {AISuggests} from "@/components/blogwrite-ai-suggest";
 
 export function BlogActionPage() {
   const [Blogdata, setBlogdata] = useState({
@@ -115,7 +116,8 @@ const HandleBlogPublishorSave = async (publish: boolean) => {
 
 
   return (
-    <div className="flex flex-col gap-4 px-10 min-h-screen">
+    <div className="flex ">
+    <div className="flex w-1/1 md:w-2/3 flex-col gap-4 px-10 min-h-screen">
       <Label className="md:text-3xl text-2xl">
         <h1>Write Your Ideas !</h1>
       </Label>
@@ -192,7 +194,7 @@ const HandleBlogPublishorSave = async (publish: boolean) => {
             {publishing ? <Loader2Icon className="animate-spin" /> : <Save />}
             <p className="hidden md:flex">Save</p>
           </Button>
-
+{/* 
           <Dialog>
             <DialogTrigger>
               <Button variant="destructive" disabled={!published}>
@@ -219,7 +221,7 @@ const HandleBlogPublishorSave = async (publish: boolean) => {
                 </div>
               </DialogHeader>
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
         </div>
         <div>
           {publishing && (
@@ -231,12 +233,12 @@ const HandleBlogPublishorSave = async (publish: boolean) => {
             </div>
           )}
           {published && (
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-4 items-center">
               <div className="flex gap-1 items-center transition-all text-gray-600 dark:hover:text-white hover:text-black">
                 <CheckCircle2 />
                 <p className="text-sm">published</p>
               </div>
-              <Tooltip>
+              {/* {<Tooltip>
                 <TooltipTrigger>
                   <Edit
                     onClick={() => setPublished(false)}
@@ -244,11 +246,13 @@ const HandleBlogPublishorSave = async (publish: boolean) => {
                   />
                 </TooltipTrigger>
                 <TooltipContent>Edit</TooltipContent>
-              </Tooltip>
+              </Tooltip}> */}
             </div>
           )}
         </div>
       </div>
+    </div>
+    <div className="w-1/3 mt-10 mr-10 hidden md:grid"><AISuggests blogtitle={Blogdata.title} blogcontent={Blogdata.content} /></div>
     </div>
   );
 }

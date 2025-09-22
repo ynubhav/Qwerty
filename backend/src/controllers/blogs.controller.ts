@@ -112,6 +112,13 @@ try{const blogId=c.req.param('id');
     const blogData=await prisma.posts.findUnique({
         where:{
             id:blogId
+        },
+        include:{
+            author:{
+                select:{
+                    name:true
+                }
+            }
         }
     });
     if(!blogData)
@@ -144,7 +151,17 @@ const getFeed=async(c:Context)=>{
     const take = limit ? parseInt(limit, 10) : 10;
 
     const blogFeed=await prisma.posts.findMany({
-        take
+        take,
+        include:{
+        author:{
+            select:{
+                name:true
+            }
+        }
+    },
+    where:{
+            published:true
+        }
     });
     return c.json({
         success:true,

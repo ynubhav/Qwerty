@@ -4,13 +4,37 @@ import * as ScrollArea from "@radix-ui/react-scroll-area";
 import { LucideFocus } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { useFullscreen } from "@/lib/utils.fullscreen";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { LoadingOverlay } from "./loading";
 // import { Logo } from "@/components/logo";
 
 export function ReadSpace() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
+  const [blogid,setid]=useState('6c03e401-6e28-4136-8452-bf53808af74a');
+  const [Blog,setBlog]=useState({});
+  const [Loading,setLoading]=useState(true);
+  const [notfound,setNotfound]=useState(true);
+
+  useEffect(()=>{
+    const getBlog=async()=>{
+      const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/blog/${blogid}`);
+      if(response.data.success){
+        setBlog(response.data.blog);
+        setNotfound(false);
+        setLoading(false)
+      }
+      else{
+        setNotfound(true);
+        setLoading(false)
+      }
+    }
+    getBlog();
+  },[])
   return (
     <>
       {/* <Logo /> */}
+      <LoadingOverlay show={Loading} message="Loading..." />
       <div className="outline-none border-1 rounded-2xl border-gray-500 my-6">
         <div className=" md:flex px-2 max-h-screen pt-2 gap-2">
           {/* LEFT BLOG PREVIEW SCROLLABLE */}
@@ -37,7 +61,7 @@ export function ReadSpace() {
             <ScrollArea.Root className="w-full h-screen rounded mt-2">
               <ScrollArea.Viewport className="w-full h-11/12">
                 <div className="flex items-center justify-center h-12/12">
-                  <BlogFullView />
+                  {!notfound&&<BlogFullView className="w-full h-full" Data={Blog} />}
                 </div>
               </ScrollArea.Viewport>
 

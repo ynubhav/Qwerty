@@ -129,7 +129,9 @@ const returnUserInfo = async (c: Context) => {
       include:{
         posts:{
           select:{
-            id:true
+            id:true,
+            title:true,
+            content:true
           }
         }
       }
@@ -157,9 +159,57 @@ const returnUserInfo = async (c: Context) => {
     c.status(500);
     return c.json({
       success: false,
-      message: "Server Error",
+      message: "2Server Error",
     });
   }
 };
 
-export { signUpUser, signinUser, returnUserInfo };
+const returnProfileInfo = async (c: Context) => {
+  try {
+    const {userid} = await c.req.param();
+    console.log(userid);
+    const prisma = getPrisma(c.env);
+    //find user with the id
+    const UserInfo = await prisma.user.findUnique({
+      where: {
+        id: userid,
+      },
+      include:{
+        posts:{
+          select:{
+            id:true,
+            title:true,
+            content:true
+          }
+        }
+      }
+    });
+    if (UserInfo) {
+      c.status(200);
+      return c.json({
+        success: true,
+        userinfo: {
+          id: UserInfo.id,
+          name: UserInfo.name,
+          avatar: UserInfo.avatar,
+          email: UserInfo.email,
+          posts: UserInfo.posts,
+        },
+      });
+    } else {
+      c.status(404);
+      return c.json({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+  } catch (err) {
+    c.status(500);
+    return c.json({
+      success: false,
+      message: "1Server Error",
+    });
+  }
+};
+
+export { signUpUser, signinUser, returnUserInfo, returnProfileInfo };

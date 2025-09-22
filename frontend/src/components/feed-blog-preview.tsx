@@ -21,10 +21,14 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface FeedPreviewProps extends React.ComponentProps<"div"> {
+  Data: any;
+}
+
 export function FeedPreview({
-  className,
+  className,Data,
   ...props
-}: React.ComponentProps<"div">) {
+}: FeedPreviewProps) {
   const navigate=useNavigate();
   const [Marked, setMarked] = useState(false);
   const [Liked, setLiked] = useState(false);
@@ -42,7 +46,7 @@ export function FeedPreview({
         <Card onDoubleClick={() => setLiked(true)} className="shadow-sm">
           <CardHeader>
             <CardTitle className="flex justify-between">
-              <p>WTH IS A BLOG ?!</p>
+              <p>{Data.title}</p>
               <div className="flex gap-2 items-center">
                 <Tooltip>
                   <TooltipTrigger>
@@ -82,26 +86,17 @@ export function FeedPreview({
             </CardTitle>
             <CardDescription className="flex gap-1">
               By{" "}
-              <p onClick={()=>{navigate('/home/profile/28419-148-saj202-783')}} className="text-green-400 hover:underline hover:underline-offset-4 cursor-pointer">
-                ynubhav
+              <p onClick={()=>{navigate(`/home/profile/${Data.authorId}`)}} className="text-green-400 hover:underline hover:underline-offset-4 cursor-pointer">
+                {Data.author.name}
               </p>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-6 max-h-30 overflow-clip ">
-              {`A blog is a website or page that is a part of a larger website.
-              Typically, it features articles written in a conversational style
-              with accompanying pictures or videos. Blogging has gained immense
-              popularity due to its enjoyable and adaptable nature, allowing for
-              self-expression and social connections. In addition, it serves as
-              a platform for enhancing writing skills and promoting businesses.
-              Furthermore, a professional blogger can even make money from
-              blogging in various ways, such as Google ads and Amazon affiliate
-              links. Successful blogs can cover any topic. No matter what
-              subject you can think of,`}
+              {Data.content}
             </div>
             <div className="flex justify-center gap-2">
-              <button className="flex gap-1 items-center mt-2 text-center text-sm underline underline-offset-4 text-gray-500 dark:hover:text-white hover:text-black">
+              <button onClick={()=>{navigate(`/blog/${Data.id}`)}} className="flex gap-1 items-center mt-2 text-center text-sm underline underline-offset-4 text-gray-500 dark:hover:text-white hover:text-black">
                 {/* Read the full blog  */}
                 <Tooltip>
                   <TooltipTrigger>

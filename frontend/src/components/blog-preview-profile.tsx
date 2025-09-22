@@ -6,15 +6,17 @@ import {
 import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export function BlogPreviewShort() {
+export function BlogPreviewShort({Data}:any) {
   const [Marked, setMarked] = useState(false);
   const [Favourite, setFav] = useState(false);
+  const navigate=useNavigate();
   return (
     <div className="w-full p-2">
       <Card className="p-4">
         <CardTitle className="m-0 p-0 flex justify-between items-center">
-          <p>WTH IS A BLOG ?!</p>
+          <p>{Data.title}</p>
           <div className="flex gap-2 items-center">
             <Tooltip>
               <TooltipTrigger>
@@ -49,7 +51,7 @@ export function BlogPreviewShort() {
           </div>
         </CardTitle>
         <CardContent className="m-0 p-0 text-sm">
-          Blog is something you write express yourself ...
+          {Data.content.substring(0,90)} ...
         </CardContent>
         <CardFooter className="m-0 p-0 flex justify-between items-center">
           <div className="flex gap-1 items-center">
@@ -60,9 +62,9 @@ export function BlogPreviewShort() {
           <p className="text-sm text-gray-500">2k Bookmarks</p>
           <Tooltip>
             <TooltipTrigger>
-                <ArrowUpRightFromSquare className="w-5 h-5 hover:bg-gray-500/40 transition-all p-0.5 rounded" />
+                <ArrowUpRightFromSquare onClick={()=>navigate(`/blog/${Data.id}`)} className="w-5 h-5 hover:bg-gray-500/40 transition-all p-0.5 rounded" />
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent >
                 Go to Blog Page
             </TooltipContent>
           </Tooltip>
