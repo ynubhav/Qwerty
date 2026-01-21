@@ -11,7 +11,7 @@ export function FooterCommon() {
     >
       <div className="flex justify-center gap-2 text-center">
         <div>
-          <p className="text-2xl md:text-3xl font-semibold">Medium.</p>
+          <p className="text-2xl md:text-3xl font-semibold">Qwerty.</p>
           <p className="text-sm text-gray-500">By @ynubhav 2025</p>
         </div>
       </div>
