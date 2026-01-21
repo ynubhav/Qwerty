@@ -15,7 +15,7 @@ export default function LandingPage() {
           transition={{ duration: 0.8 }}
           className="text-6xl md:text-8xl font-extrabold tracking-tight"
         >
-          Medium<span className="text-amber-500">.</span>
+            Qwerty<span className="text-amber-500">.</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
