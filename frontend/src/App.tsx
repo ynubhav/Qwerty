@@ -13,6 +13,7 @@ import { useFullscreen } from "./lib/utils.fullscreen";
 import { Toaster } from "sonner";
 import { CreateLogsPage } from "./pages/create-logs-page";
 import LandingPage from "./pages/Landing-page";
+import MarkdownPage from "./pages/markdown-page";
 
 function App() {
   const { isFullscreen } = useFullscreen();
@@ -45,6 +46,7 @@ function App() {
               <Route path="/blog/workspace/logs" element={<CreateLogsPage />} />
               <Route path="/blog/actions/:id" element={<BlogActionPage />} />
               <Route path="*" element={<LandingPage />} />
+              <Route path="/markdown" element={<MarkdownPage />} />
             </Routes>
           </main>
 
